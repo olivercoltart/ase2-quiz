@@ -1,0 +1,18 @@
+/* App.css */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9fafb;
+  font-family: sans-serif;
+}
+
+.quiz-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 100%;
+}
