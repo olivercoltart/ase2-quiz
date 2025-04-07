@@ -49,6 +49,41 @@ function App() {
     },
   ];
 
+  function App() {
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [answers, setAnswers] = useState({});
+    const [submitted, setSubmitted] = useState(false);
+  
+    const handleOptionChange = (option) => {
+      setAnswers({ ...answers, [currentQuestion]: option });
+    };
+  
+    const handleNext = () => {
+      if (currentQuestion < quizQuestions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      }
+    };
+  
+    const handleSubmit = () => {
+      setSubmitted(true);
+    };
+  
+    const calculateScore = () => {
+      let score = 0;
+      quizQuestions.forEach((q, index) => {
+        if (answers[index] === q.correctAnswer) {
+          score += 1;
+        }
+      });
+      return score;
+    };
+  
+    const score = calculateScore();
+    const totalQuestions = quizQuestions.length;
+    const question = quizQuestions[currentQuestion];
+  }
+
+  
   return (
     <div className="app-container">
       <div className="quiz-box">
