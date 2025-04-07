@@ -3,16 +3,61 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f9fafb;
-  font-family: sans-serif;
+  min-height: 100vh;
+  background-image: url('https://www.transparenttextures.com/patterns/leopard.png'); /* animal print texture */
+  background-color: #f1fdf6;
+  font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+  padding: 1rem;
 }
 
 .quiz-box {
-  background: white;
+  background-color: #ffffff;
+  border: 4px solid #2a9655;
+  border-radius: 20px;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+h1, h2 {
+  color: #2a9655;
+  margin-bottom: 1rem;
+}
+
+p, label {
+  font-size: 1.1rem;
+}
+
+input[type="radio"] {
+  accent-color: #2a9655;
+}
+
+button {
+  background-color: #2a9655;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 25px;
+}
+
+button:hover {
+  background-color: #247e48;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
