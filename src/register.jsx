@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import './App.css';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -13,31 +17,49 @@ function Register() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-        return (
-            <div className="app-container">
-                <div className="register-box">
-                    <h2>Register New User</h2>
+    const handleRegister = () => {
+        // Save user info to localStorage
+        localStorage.setItem('user', JSON.stringify(formData));
+        // Redirect to main page
+        navigate('/');
+    };
 
-                    <div>
-                        <label>Name:</label><br />
-                        <input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field" />
-                    </div>
+    return (
+        <div className="app-container">
+            <div className="register-box">
+                <h2>Register New User</h2>
 
-                    <div>
-                        <label>Email:</label><br />
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field" />
-                    </div>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="input-field"
+                />
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="input-field"
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="input-field"
+                />
 
-                    <div>
-                        <label>Password:</label><br />
-                        <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field" />
-                    </div>
-
-                    <button disabled>Register (Coming Soon)</button>
-                </div>
+                <button onClick={handleRegister}>Register</button>
             </div>
-        );
-    }
+        </div>
+
+    );
+}
 
 
 export default Register;

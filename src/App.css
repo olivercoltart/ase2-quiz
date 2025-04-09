@@ -67,6 +67,19 @@ button:hover {
   background-color: #247e48;
 }
 
+.user-name {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-weight: bold;
+  color: #2a9655;
+  font-size: 1.1rem;
+  background-color: #ffffffaa;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -77,3 +90,4 @@ button:hover {
     transform: translateY(0);
   }
 }
+

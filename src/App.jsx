@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'; // optional: for centering/styling
 
 const quizQuestions = [
@@ -55,6 +55,16 @@ const quizQuestions = [
 ];
 
 function App() {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -88,7 +98,14 @@ function App() {
   const question = quizQuestions[currentQuestion];
 
   return (
+
     <div className="app-container">
+      {user && (
+        <div className="user-name">
+          👋 Hi, {user.name}
+        </div>
+      )}
+
       <div className="quiz-box">
         {!submitted ? (
           <>
@@ -119,25 +136,25 @@ function App() {
                   Next
                 </button>
               ) : (
-                <button
-                  onClick={handleSubmit}
-                  disabled={answers[currentQuestion] == null}
-                  className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-                >
-                  Submit
-                </button>
-              )}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={answers[currentQuestion] == null}
+                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+                  >
+                    Submit
+                  </button>
+                )}
             </div>
           </>
         ) : (
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Your Score:</h2>
-            <p>
-              You got {score} out of {totalQuestions} correct (
+            <div>
+              <h2 className="text-xl font-semibold mb-2">Your Score:</h2>
+              <p>
+                You got {score} out of {totalQuestions} correct (
               {Math.round((score / totalQuestions) * 100)}%)
             </p>
-          </div>
-        )}
+            </div>
+          )}
       </div>
     </div>
   );
