@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import './App.css';
+import './App.css';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -15,8 +15,8 @@ function Register() {
 
         return (
             <div className="app-container">
-                <div className="quiz-box">
-                    <h2>🐾 Register New User</h2>
+                <div className="register-box">
+                    <h2>Register New User</h2>
 
                     <div>
                         <label>Name:</label><br />
