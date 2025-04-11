@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
-<<<<<<< Updated upstream
-import './App.css'; // optional: for centering/styling
-=======
 import { useNavigate } from 'react-router-dom';
-import './App.css';
->>>>>>> Stashed changes
+import './App.css'; // optional: for centering/styling
 
 const quizQuestions = [
   {
@@ -61,6 +57,8 @@ const quizQuestions = [
 
 function App() {
 
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -73,7 +71,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(30); // 30 seconds for each question
 
   const handleOptionChange = (option) => {
     setAnswers({ ...answers, [currentQuestion]: option });
@@ -90,7 +88,7 @@ function App() {
       if (answers[index] == null) {
         setAnswers((prev) => ({
           ...prev,
-          [index]: '', 
+          [index]: 'incorrect', // Mark unanswered as incorrect
         }));
       }
     });
@@ -112,12 +110,12 @@ function App() {
   const question = quizQuestions[currentQuestion];
 
   useEffect(() => {
-    if (submitted) return; 
+    if (submitted) return; // No timer when quiz is submitted
 
     if (timeLeft <= 0) {
       setAnswers((prev) => ({
         ...prev,
-        [currentQuestion]: '',
+        [currentQuestion]: 'incorrect',
       }));
       setSubmitted(true);
       return;
@@ -129,16 +127,16 @@ function App() {
           clearInterval(timer);
           setAnswers((prev) => ({
             ...prev,
-            [currentQuestion]: '', 
+            [currentQuestion]: 'incorrect', // Mark as incorrect if not answered
           }));
-          setSubmitted(true);
+          setSubmitted(true); // Automatically submit the quiz when time is up
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer); // Clean up interval
   }, [currentQuestion, timeLeft, submitted]);
 
   return (
@@ -152,9 +150,6 @@ function App() {
       <div className="quiz-box">
         {!submitted ? (
           <>
-          <div className="timer">
-              <p>Time left: {timeLeft}s</p>
-          </div>
             <p className="font-medium mb-2">
               Question {currentQuestion + 1} of {totalQuestions}
             </p>
@@ -167,7 +162,7 @@ function App() {
                   value={key}
                   checked={answers[currentQuestion] === key}
                   onChange={() => handleOptionChange(key)}
-                  disabled={timeLeft === 0} 
+                  disabled={timeLeft === 0} // Disable inputs when time is up
                 />{" "}
                 {key.toUpperCase()}. {value}
               </label>
@@ -177,7 +172,7 @@ function App() {
               {currentQuestion < totalQuestions - 1 ? (
                 <button
                   onClick={handleNext}
-                  disabled={answers[currentQuestion] == null || timeLeft === 0}
+                  disabled={answers[currentQuestion] == null || timeLeft === 0} // Disable next button if time is up or no answer
                   className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
                 >
                   Next
@@ -185,12 +180,16 @@ function App() {
               ) : (
                 <button
                   onClick={handleSubmit}
-                  disabled={answers[currentQuestion] == null || timeLeft === 0} 
+                  disabled={answers[currentQuestion] == null || timeLeft === 0} // Disable submit if time is up or no answer
                   className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
                 >
                   Submit
                 </button>
               )}
+            </div>
+
+            <div className="timer">
+              <p>Time left: {timeLeft}s</p>
             </div>
           </>
         ) : (
@@ -200,10 +199,6 @@ function App() {
               You got {score} out of {totalQuestions} correct (
               {Math.round((score / totalQuestions) * 100)}%)
             </p>
-<<<<<<< Updated upstream
-            </div>
-          )}
-=======
             <button
               onClick={() =>
                 navigate("/review", {
@@ -219,7 +214,6 @@ function App() {
             </button>
           </div>
         )}
->>>>>>> Stashed changes
       </div>
     </div>
   );
