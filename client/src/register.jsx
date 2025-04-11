@@ -34,7 +34,7 @@ function Register() {
 
     if (response.ok) {
       setSuccess(data.message);
-      navigate('/'); // можно поменять на страницу логина
+      navigate('/'); 
     } else {
       setError(data.message);
     }
