@@ -4,14 +4,16 @@ import db from './db.js';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
   db.run(
     `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
-    [name, email, hashedPassword],
+    [name, email, password],
     function (err) {
-      if (err) return res.status(500).json({ message: 'Email already in use' });
+      if (err) {
+        return res.status(500).json({ message: 'Email already in use or registration error' });
+      }
       res.json({ message: 'User registered successfully' });
     }
   );
