@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css'; // optional: for centering/styling
+import './App.css'; 
 
 const quizQuestions = [
   {
@@ -71,7 +71,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(5); // 30 seconds for each question
+  const [timeLeft, setTimeLeft] = useState(10); 
 
   const handleOptionChange = (option) => {
     setAnswers({ ...answers, [currentQuestion]: option });
@@ -88,7 +88,7 @@ function App() {
       if (answers[index] == null) {
         setAnswers((prev) => ({
           ...prev,
-          [index]: 'incorrect', // Mark unanswered as incorrect
+          [index]: 'incorrect', 
         }));
       }
     });

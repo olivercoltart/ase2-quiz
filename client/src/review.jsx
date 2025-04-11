@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import './review.css'; // добавили импорт стилей
+import './review.css'; 
 
 function Review() {
   const location = useLocation();
