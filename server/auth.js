@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
 
   db.run(
     `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
-    [name, email, hashedPassword],
+    [name, email, password],
     function (err) {
       if (err) return res.status(500).json({ message: 'Email already in use' });
       res.json({ message: 'User registered successfully' });
