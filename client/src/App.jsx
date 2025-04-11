@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
+<<<<<<< Updated upstream
 import './App.css'; // optional: for centering/styling
+=======
+import { useNavigate } from 'react-router-dom';
+import './App.css';
+>>>>>>> Stashed changes
 
 const quizQuestions = [
   {
@@ -68,6 +73,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30);
 
   const handleOptionChange = (option) => {
     setAnswers({ ...answers, [currentQuestion]: option });
@@ -80,6 +86,14 @@ function App() {
   };
 
   const handleSubmit = () => {
+    quizQuestions.forEach((q, index) => {
+      if (answers[index] == null) {
+        setAnswers((prev) => ({
+          ...prev,
+          [index]: '', 
+        }));
+      }
+    });
     setSubmitted(true);
   };
 
@@ -97,8 +111,37 @@ function App() {
   const totalQuestions = quizQuestions.length;
   const question = quizQuestions[currentQuestion];
 
-  return (
+  useEffect(() => {
+    if (submitted) return; 
 
+    if (timeLeft <= 0) {
+      setAnswers((prev) => ({
+        ...prev,
+        [currentQuestion]: '',
+      }));
+      setSubmitted(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setAnswers((prev) => ({
+            ...prev,
+            [currentQuestion]: '', 
+          }));
+          setSubmitted(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); 
+  }, [currentQuestion, timeLeft, submitted]);
+
+  return (
     <div className="app-container">
       {user && (
         <div className="user-name">
@@ -109,6 +152,9 @@ function App() {
       <div className="quiz-box">
         {!submitted ? (
           <>
+          <div className="timer">
+              <p>Time left: {timeLeft}s</p>
+          </div>
             <p className="font-medium mb-2">
               Question {currentQuestion + 1} of {totalQuestions}
             </p>
@@ -121,6 +167,7 @@ function App() {
                   value={key}
                   checked={answers[currentQuestion] === key}
                   onChange={() => handleOptionChange(key)}
+                  disabled={timeLeft === 0} 
                 />{" "}
                 {key.toUpperCase()}. {value}
               </label>
@@ -130,31 +177,49 @@ function App() {
               {currentQuestion < totalQuestions - 1 ? (
                 <button
                   onClick={handleNext}
-                  disabled={answers[currentQuestion] == null}
+                  disabled={answers[currentQuestion] == null || timeLeft === 0}
                   className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
                 >
                   Next
                 </button>
               ) : (
-                  <button
-                    onClick={handleSubmit}
-                    disabled={answers[currentQuestion] == null}
-                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-                  >
-                    Submit
-                  </button>
-                )}
+                <button
+                  onClick={handleSubmit}
+                  disabled={answers[currentQuestion] == null || timeLeft === 0} 
+                  className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+                >
+                  Submit
+                </button>
+              )}
             </div>
           </>
         ) : (
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Your Score:</h2>
-              <p>
-                You got {score} out of {totalQuestions} correct (
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Your Score:</h2>
+            <p>
+              You got {score} out of {totalQuestions} correct (
               {Math.round((score / totalQuestions) * 100)}%)
             </p>
+<<<<<<< Updated upstream
             </div>
           )}
+=======
+            <button
+              onClick={() =>
+                navigate("/review", {
+                  state: {
+                    quizQuestions,
+                    answers,
+                  },
+                })
+              }
+              className="mt-4 bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
+            >
+              Review Incorrect Answers
+            </button>
+          </div>
+        )}
+>>>>>>> Stashed changes
       </div>
     </div>
   );
