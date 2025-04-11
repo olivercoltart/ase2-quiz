@@ -1,0 +1,24 @@
+.column-layout {
+    flex-direction: column;
+  }
+  
+  .horizontal-scroll {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    width: 100%;
+  }
+  
+  .review-card {
+    min-width: 300px;
+    flex-shrink: 0;
+    background-color: #ffeaea;
+    border: 4px solid #d32f2f;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  

@@ -71,7 +71,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30); // 30 seconds for each question
+  const [timeLeft, setTimeLeft] = useState(5); // 30 seconds for each question
 
   const handleOptionChange = (option) => {
     setAnswers({ ...answers, [currentQuestion]: option });
@@ -127,7 +127,7 @@ function App() {
           clearInterval(timer);
           setAnswers((prev) => ({
             ...prev,
-            [currentQuestion]: 'incorrect', // Mark as incorrect if not answered
+            [currentQuestion]: '', // Mark as incorrect if not answered
           }));
           setSubmitted(true); // Automatically submit the quiz when time is up
           return 0;
