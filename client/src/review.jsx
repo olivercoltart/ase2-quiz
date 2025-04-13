@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import './review.css'; // добавили импорт стилей
+import './review.css'; 
+
 
 function Review() {
   const location = useLocation();
@@ -24,7 +25,7 @@ function Review() {
           return (
             <div key={index} className="review-card">
               <p><strong>{index + 1}. {q.question}</strong></p>
-              <p>Your answer: <strong>{userAnswer?.toUpperCase()}. {q.options[userAnswer]}</strong></p>
+              <p>Your answer: <strong>{userAnswer?.toUpperCase()} {q.options[userAnswer]}</strong></p>
               <p>Correct answer: <strong>{q.correctAnswer.toUpperCase()}. {q.options[q.correctAnswer]}</strong></p>
             </div>
           );
