@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
 import Register from './register.jsx'; 
 import Login from './login.jsx'; 
-import Review from './review.jsx';
+import Review from './review.jsx'; 
 import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

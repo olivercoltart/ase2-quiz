@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css'; 
+import './App.css'; // optional: for centering/styling
 
 const quizQuestions = [
   {
@@ -200,20 +200,21 @@ function App() {
               {Math.round((score / totalQuestions) * 100)}%)
             </p>
             <button
-              onClick={() =>
-                navigate("/review", {
-                  state: {
-                    quizQuestions,
-                    answers,
-                  },
-                })
-              }
-              className="mt-4 bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-            >
-              Review Incorrect Answers
-            </button>
-          </div>
-        )}
+onClick={() =>
+  navigate("/review", {
+    state: {
+      quizQuestions,
+      answers,
+    },
+  })
+}
+className="mt-4 bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
+>
+  Review Incorrect Answers
+</button>
+</div>
+)}
+
       </div>
     </div>
   );
