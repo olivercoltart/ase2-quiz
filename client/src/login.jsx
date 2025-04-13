@@ -1,20 +1,28 @@
 // client/src/Login.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
+import './App.css';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
 
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleLogin = async () => {
     const response = await fetch('http://localhost:3001/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(formData),
     });
 
     const data = await response.json();
@@ -29,25 +37,30 @@ function Login() {
 
   return (
     <div className="app-container">
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleLogin}>
+      <div className="register-box">
+        <h2>Login</h2>
+
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
         <input
           type="email"
+          name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required />
-        <br />
+          value={formData.email}
+          onChange={handleChange}
+          className="input-field"
+        />
         <input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+          value={formData.password}
+          onChange={handleChange}
+          className="input-field"
+        />
+
+        <button onClick={handleLogin}>Login</button>
+      </div>
     </div>
   );
 }
