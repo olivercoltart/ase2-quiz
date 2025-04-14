@@ -1,10 +1,12 @@
-// client/src/Login.jsx
+// client/src/login.jsx
 import { useState } from 'react';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext.jsx'; 
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth(); 
 
   const [formData, setFormData] = useState({
     email: '',
@@ -28,7 +30,8 @@ function Login() {
     const data = await response.json();
 
     if (response.ok) {
-      alert(`Welcome, ${data.name}`);
+      login(); 
+      alert(`Добро пожаловать, ${data.name}`);
       navigate('/');
     } else {
       setError(data.message);
