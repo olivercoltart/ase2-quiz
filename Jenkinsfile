@@ -13,7 +13,7 @@ pipeline {
                     // Change directory to the 'client' folder and install dependencies
                     dir('client') {  // This specifies the 'client' folder
                         // Install the dependencies
-                        sh 'npm install'  // If you're using npm
+                        sh 'npm ci || npm install'  // If you're using npm
                         // Or, if you use yarn, use: sh 'yarn install'
                         sh 'npm audit fix'  // Fix vulnerabilities automatically
                     }
@@ -26,7 +26,7 @@ pipeline {
                 script {
                     dir('client') {  // Again, change to 'client' folder
                         // Run your tests
-                        sh 'npm test'  // This will run the tests defined in your package.json
+                        sh 'npx vitest run'  // This will run the tests defined in your package.json
                     }
                 }
             }
