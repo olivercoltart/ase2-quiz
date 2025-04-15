@@ -1,39 +1,35 @@
 pipeline {
-    agent any
+    agent any  // This can be 'node' or a specific agent where Node.js is installed
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/olivercoltart/ase2-quiz.git'
-            }
-        }
-        stage('Install Dependencies') {
+        stage('Install Client Dependencies') {
             steps {
                 script {
-                    // For React frontend
-                    dir('frontend') {
-                        sh 'npm install'
-                    }
-                    // For Node.js backend
-                    dir('backend') {
-                        sh 'npm install'
+                    // Change directory to the 'client' folder and install dependencies
+                    dir('client') {  // This specifies the 'client' folder
+                        // Install the dependencies
+                        sh 'npm install'  // If you're using npm
+                        // Or, if you use yarn, use: sh 'yarn install'
                     }
                 }
             }
         }
-        stage('Run Tests') {
+
+        stage('Run Client Tests') {
             steps {
                 script {
-                    // Run frontend tests (React)
-                    dir('frontend') {
-                        sh 'npm test'
-                    }
-                    // Run backend tests (Node.js)
-                    dir('backend') {
-                        sh 'npm test'
+                    dir('client') {  // Again, change to 'client' folder
+                        // Run your tests
+                        sh 'npm test'  // This will run the tests defined in your package.json
                     }
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            // Post-build actions (e.g., notifications, cleanup, etc.)
         }
     }
 }
