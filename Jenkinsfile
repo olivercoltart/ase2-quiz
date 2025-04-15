@@ -15,6 +15,7 @@ pipeline {
                         // Install the dependencies
                         sh 'npm install'  // If you're using npm
                         // Or, if you use yarn, use: sh 'yarn install'
+                        sh 'npm audit fix'  // Fix vulnerabilities automatically
                     }
                 }
             }
