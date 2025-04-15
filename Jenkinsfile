@@ -35,7 +35,7 @@ pipeline {
 
     post {
         always {
-            // Post-build actions (e.g., notifications, cleanup, etc.)
+            echo 'This always runs after the build, whether it succeeds or fails.'
         }
     }
 }
