@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker { 
             image 'node:16'  // This specifies the Node.js Docker image (can use any version you need)
-            label 'docker'  // Optional, if you have a label for Jenkins agents that support Docker
             args '-u root:root'  // Optional, depending on your system and user permissions
         }
     }
