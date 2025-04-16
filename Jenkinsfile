@@ -26,6 +26,7 @@ pipeline {
                 script {
                     dir('client') {  // Again, change to 'client' folder
                         // Run your tests
+                        sh 'npm run test'
                     }
                 }
             }
