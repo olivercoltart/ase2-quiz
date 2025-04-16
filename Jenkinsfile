@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker { 
-            image 'node:20'  // This specifies the Node.js Docker image (can use any version you need)
-            args '-u root:root'  // Optional, depending on your system and user permissions
+            image 'node:20' // specified Node.js Docker image
+            args '-u root:root'  
         }
     }
 
@@ -11,10 +11,9 @@ pipeline {
             steps {
                 script {
                     // Change directory to the 'client' folder and install dependencies
-                    dir('client') {  // This specifies the 'client' folder
+                    dir('client') {  // specifies the 'client' folder
                         // Install the dependencies
-                        sh 'npm ci || npm install'  // If you're using npm
-                        // Or, if you use yarn, use: sh 'yarn install'
+                        sh 'npm ci || npm install'  
                         sh 'npm audit fix || true'
                     }
                 }
@@ -24,8 +23,8 @@ pipeline {
         stage('Run Client Tests') {
             steps {
                 script {
-                    dir('client') {  // Again, change to 'client' folder
-                        // Run your tests
+                    dir('client') {  
+                        // Run tests
                         sh 'npm run test'
                     }
                 }
