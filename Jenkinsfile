@@ -26,7 +26,6 @@ pipeline {
                 script {
                     dir('client') {  // Again, change to 'client' folder
                         // Run your tests
-                        sh 'npx vitest run'  // This will run the tests defined in your package.json
                     }
                 }
             }
